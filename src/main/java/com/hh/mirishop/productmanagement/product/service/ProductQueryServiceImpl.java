@@ -1,10 +1,10 @@
-package com.hh.mirishop.productmanagement.service;
+package com.hh.mirishop.productmanagement.product.service;
 
 import com.hh.mirishop.productmanagement.common.exception.ErrorCode;
 import com.hh.mirishop.productmanagement.common.exception.ProductException;
-import com.hh.mirishop.productmanagement.dto.ProductResponse;
-import com.hh.mirishop.productmanagement.entity.Product;
-import com.hh.mirishop.productmanagement.repository.ProductRepository;
+import com.hh.mirishop.productmanagement.product.dto.ProductResponse;
+import com.hh.mirishop.productmanagement.product.entity.Product;
+import com.hh.mirishop.productmanagement.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

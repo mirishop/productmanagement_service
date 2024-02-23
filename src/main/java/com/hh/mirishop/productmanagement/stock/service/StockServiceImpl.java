@@ -2,7 +2,7 @@ package com.hh.mirishop.productmanagement.stock.service;
 
 import com.hh.mirishop.productmanagement.common.exception.ErrorCode;
 import com.hh.mirishop.productmanagement.common.exception.StockException;
-import com.hh.mirishop.productmanagement.entity.Product;
+import com.hh.mirishop.productmanagement.product.entity.Product;
 import com.hh.mirishop.productmanagement.stock.entity.Stock;
 import com.hh.mirishop.productmanagement.stock.repository.StockRepository;
 import lombok.RequiredArgsConstructor;

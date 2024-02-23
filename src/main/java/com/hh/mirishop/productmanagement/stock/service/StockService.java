@@ -1,6 +1,6 @@
 package com.hh.mirishop.productmanagement.stock.service;
 
-import com.hh.mirishop.productmanagement.entity.Product;
+import com.hh.mirishop.productmanagement.product.entity.Product;
 import com.hh.mirishop.productmanagement.stock.entity.Stock;
 
 public interface StockService {

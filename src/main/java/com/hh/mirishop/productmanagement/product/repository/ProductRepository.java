@@ -1,6 +1,6 @@
-package com.hh.mirishop.productmanagement.repository;
+package com.hh.mirishop.productmanagement.product.repository;
 
-import com.hh.mirishop.productmanagement.entity.Product;
+import com.hh.mirishop.productmanagement.product.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

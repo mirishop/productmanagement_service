@@ -1,6 +1,6 @@
 package com.hh.mirishop.productmanagement.stock.dto;
 
-import com.hh.mirishop.productmanagement.entity.PreOrderProduct;
+import com.hh.mirishop.productmanagement.product.entity.PreOrderProduct;
 import com.hh.mirishop.productmanagement.stock.entity.Stock;
 import lombok.Getter;
 

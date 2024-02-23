@@ -1,4 +1,4 @@
-package com.hh.mirishop.productmanagement.entity;
+package com.hh.mirishop.productmanagement.product.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;

@@ -1,13 +1,13 @@
-package com.hh.mirishop.productmanagement.service;
+package com.hh.mirishop.productmanagement.product.service;
 
 import com.hh.mirishop.productmanagement.common.exception.ErrorCode;
 import com.hh.mirishop.productmanagement.common.exception.ProductException;
-import com.hh.mirishop.productmanagement.dto.ProductCreate;
-import com.hh.mirishop.productmanagement.dto.ProductUpdate;
-import com.hh.mirishop.productmanagement.entity.PreOrderProduct;
-import com.hh.mirishop.productmanagement.entity.Product;
-import com.hh.mirishop.productmanagement.entity.RegularProduct;
-import com.hh.mirishop.productmanagement.repository.ProductRepository;
+import com.hh.mirishop.productmanagement.product.dto.ProductCreate;
+import com.hh.mirishop.productmanagement.product.dto.ProductUpdate;
+import com.hh.mirishop.productmanagement.product.entity.PreOrderProduct;
+import com.hh.mirishop.productmanagement.product.entity.Product;
+import com.hh.mirishop.productmanagement.product.entity.RegularProduct;
+import com.hh.mirishop.productmanagement.product.repository.ProductRepository;
 import com.hh.mirishop.productmanagement.stock.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

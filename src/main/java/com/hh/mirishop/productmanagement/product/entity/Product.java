@@ -1,4 +1,4 @@
-package com.hh.mirishop.productmanagement.entity;
+package com.hh.mirishop.productmanagement.product.entity;
 
 import com.hh.mirishop.productmanagement.stock.entity.Stock;
 import jakarta.persistence.CascadeType;

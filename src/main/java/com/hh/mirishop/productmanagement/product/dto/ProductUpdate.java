@@ -1,4 +1,4 @@
-package com.hh.mirishop.productmanagement.dto;
+package com.hh.mirishop.productmanagement.product.dto;
 
 
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class ProductCreate {
+public class ProductUpdate {
 
     private String name;
     private String content;

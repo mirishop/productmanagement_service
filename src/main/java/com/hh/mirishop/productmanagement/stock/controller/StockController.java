@@ -1,9 +1,9 @@
 package com.hh.mirishop.productmanagement.stock.controller;
 
-import com.hh.mirishop.productmanagement.common.dto.dto.BaseResponse;
+import com.hh.mirishop.productmanagement.common.dto.BaseResponse;
 import com.hh.mirishop.productmanagement.stock.dto.StockResponse;
 import com.hh.mirishop.productmanagement.stock.entity.Stock;
-import com.hh.mirishop.productmanagement.stock.service.StockService;
+import com.hh.mirishop.productmanagement.stock.service.StockQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/stock")
+@RequestMapping("/api/v1/stocks")
 public class StockController {
 
-    private final StockService stockService;
+    private final StockQueryService stockQueryService;
 
     @GetMapping("/{productId}")
     public ResponseEntity<BaseResponse<StockResponse>> readStock(@PathVariable("productId") Long productId) {
-        Stock productStock = stockService.readStockCount(productId);
+        Stock productStock = stockQueryService.readStock(productId);
         StockResponse stockResponse = new StockResponse(productStock);
-        return ResponseEntity.ok(new BaseResponse<>("상품 재고 조회 완료", true, stockResponse));
+        return ResponseEntity.ok(new BaseResponse<>("상품 재고 정보 조회 완료", true, stockResponse));
     }
-
 }

@@ -115,11 +115,11 @@ public class StockServiceTests {
         assertThat(stock.getQuantity()).isEqualTo(initQuantity - numberOfThreads * decreaseCountPerThread);
     }
 
-    @DisplayName("멀티스레드 환경에서 재고를 초과한 경우 테스트")
+    @DisplayName("멀티스레드 환경에서 여러개 재고 주문하는 경우 테스트")
     @Test
-    void decreaseStockInMultiThreadEnvironment2() throws InterruptedException {
-        int numberOfThreads = 20;
-        int decreaseCountPerThread = 4;
+    void decreaseStocksInMultiThreadEnvironment() throws InterruptedException {
+        int numberOfThreads = 99;
+        int decreaseCountPerThread = 1;
 
         ExecutorService service = Executors.newFixedThreadPool(numberOfThreads);
 

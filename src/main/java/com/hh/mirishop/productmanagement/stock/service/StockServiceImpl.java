@@ -2,17 +2,15 @@ package com.hh.mirishop.productmanagement.stock.service;
 
 import com.hh.mirishop.productmanagement.common.exception.ErrorCode;
 import com.hh.mirishop.productmanagement.common.exception.StockException;
+import com.hh.mirishop.productmanagement.common.lock.LockConfig;
+import com.hh.mirishop.productmanagement.common.lock.annotation.DistributedLock;
 import com.hh.mirishop.productmanagement.product.entity.Product;
 import com.hh.mirishop.productmanagement.stock.entity.Stock;
 import com.hh.mirishop.productmanagement.stock.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 @Transactional
@@ -21,11 +19,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public class StockServiceImpl implements StockService {
 
     private final StockRepository stockRepository;
-    private final ConcurrentHashMap<Long, ReentrantLock> locks = new ConcurrentHashMap<>();
 
+    /**
+     * 재고 추가 기능, product 추가 이후 진행되는 메소드
+     */
     @Override
     @Transactional
-    @CachePut(value = "stock", key = "#root.args[0].productId") // 파라미터 값을 받아오지 못하여 args 인자로 전달
     public Integer addStock(Product savedProduct, int quantity) {
         Stock stock = Stock.builder()
                 .product(savedProduct)
@@ -37,9 +36,11 @@ public class StockServiceImpl implements StockService {
         return stock.getQuantity();
     }
 
+    /**
+     * 재고 수정 기능, 판매자가 재고를 수정하면 변경되는 메소드
+     */
     @Override
     @Transactional
-    @CachePut(value = "stock", key = "#root.args[0]")
     public void modifyStock(Long productId, int quantity) {
         Stock stock = stockRepository.findById(productId)
                 .orElseThrow(() -> new StockException(ErrorCode.STOCK_NOT_FOUND));
@@ -47,9 +48,13 @@ public class StockServiceImpl implements StockService {
         stock.update(quantity);
     }
 
+    /**
+     * 재고 감소 기능
+     * 구매가 발생하여 재고 감소가 일어나면 Redisson 으로 분산락 적용
+     */
     @Override
     @Transactional
-    @CachePut(value = "stock", key = "#root.args[0]")
+    @DistributedLock(lockConfig = LockConfig.TEST_LOCK)
     public void decreaseStock(Long productId, int count) {
         log.info("Decreasing stock for productId: {}, count: {}", productId, count);
 
@@ -66,37 +71,25 @@ public class StockServiceImpl implements StockService {
         log.info("Stock decreased for productId: {}. New quantity: {}", productId, newQuantity);
     }
 
+    /**
+     * 재고 복구 기능
+     * 구매 취소가 발생하여 재고 취소가 일어나면 Redisson 으로 분산락 적용
+     */
     @Override
     @Transactional
-    @CachePut(value = "stock", key = "#root.args[0]")
+    @DistributedLock(lockConfig = LockConfig.TEST_LOCK)
     public void restoreStock(Long productId, int count) {
-        ReentrantLock lock = locks.computeIfAbsent(productId, k -> new ReentrantLock());
-        boolean isLocked = false;
+        Stock stock = stockRepository.findById(productId)
+                .orElseThrow(() -> new StockException(ErrorCode.STOCK_NOT_FOUND));
 
-        try {
-            isLocked = lock.tryLock();
+        // 기존 재고에서 count만큼 복구
+        int newQuantity = stock.getQuantity() + count;
 
-            if (!isLocked) {
-                throw new StockException(ErrorCode.STOCK_LOCK_FAILURE);
-            }
-
-            // Stock 엔티티 존재 확인
-            Stock stock = stockRepository.findById(productId)
-                    .orElseThrow(() -> new StockException(ErrorCode.STOCK_NOT_FOUND));
-
-            // 기존 재고에서 count만큼 복구
-            int newQuantity = stock.getQuantity() + count;
-
-            // 재고 수량 확인하여 0보다 작으면 에러
-            if (newQuantity < 0) {
-                throw new StockException(ErrorCode.STOCK_NOT_ENOUGH);
-            }
-
-            stock.update(newQuantity);
-        } finally {
-            if (isLocked) {
-                lock.unlock();
-            }
+        // 재고 수량 확인하여 0보다 작으면 에러
+        if (newQuantity < 0) {
+            throw new StockException(ErrorCode.STOCK_NOT_ENOUGH);
         }
+
+        stock.update(newQuantity);
     }
 }

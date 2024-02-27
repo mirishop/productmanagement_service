@@ -29,7 +29,6 @@ import java.time.LocalDateTime;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "products")
 @DiscriminatorColumn(name = "Dtype")
-
 @SuperBuilder
 @Getter
 @AllArgsConstructor

@@ -1,11 +1,11 @@
 package com.hh.mirishop.productmanagement.stock.dto;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
-public class StockRequest {
+@NoArgsConstructor
+public class StockCreate {
 
     private Long productId;
     private int quantity;

@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     @Transactional
-    public Long create(ProductCreate productCreate) {
+    public Long createProductAndStock(ProductCreate productCreate) {
         // ReservationTime을 가지는 경우와 아닌 경우로 나누어 Product 생성
         Product product = prepareProduct(productCreate);
 

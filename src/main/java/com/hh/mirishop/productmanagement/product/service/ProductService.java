@@ -5,7 +5,7 @@ import com.hh.mirishop.productmanagement.product.dto.ProductUpdate;
 
 public interface ProductService {
 
-    Long create(ProductCreate productCreate);
+    Long createProductAndStock(ProductCreate productCreate);
 
     void update(Long productId, ProductUpdate productUpdate);
 

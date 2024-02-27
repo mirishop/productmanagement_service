@@ -1,15 +1,14 @@
 package com.hh.mirishop.productmanagement.stock.service;
 
 import com.hh.mirishop.productmanagement.product.entity.Product;
-import com.hh.mirishop.productmanagement.stock.entity.Stock;
 
 public interface StockService {
 
-    void addStock(Product savedproduct, int quantity);
+    Integer addStock(Product product, int quantity);
 
     void modifyStock(Long productId, int quantity);
 
-    void removeStock(Long productId, int quantity);
+    void decreaseStock(Long productId, int quantity);
 
-    Stock readStockCount(Long productId);
+    void restoreStock(Long productId, int count);
 }

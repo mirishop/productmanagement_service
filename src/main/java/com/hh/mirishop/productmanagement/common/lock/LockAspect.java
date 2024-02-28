@@ -1,6 +1,7 @@
 package com.hh.mirishop.productmanagement.common.lock;
 
 import com.hh.mirishop.productmanagement.common.lock.annotation.DistributedLock;
+import com.hh.mirishop.productmanagement.config.LockConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

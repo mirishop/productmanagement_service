@@ -5,7 +5,6 @@ import com.hh.mirishop.productmanagement.common.exception.StockException;
 import com.hh.mirishop.productmanagement.stock.entity.Stock;
 import com.hh.mirishop.productmanagement.stock.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,6 @@ public class StockQueryServiceImpl implements StockQueryService {
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "stock", key = "#root.args[0]")
     public Integer readStockCount(Long productId) {
         Stock stock = stockRepository.findById(productId)
                 .orElseThrow(() -> new StockException(ErrorCode.STOCK_NOT_FOUND));

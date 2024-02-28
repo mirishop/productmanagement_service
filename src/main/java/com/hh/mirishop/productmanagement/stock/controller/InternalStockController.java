@@ -20,6 +20,9 @@ public class InternalStockController {
     private final StockService stockService;
     private final StockQueryService stockQueryService;
 
+    /**
+     * 단순 재고만 조회하는 내부용 메소드
+     */
     @GetMapping("/{productId}")
     public ResponseEntity<BaseResponse<Integer>> readStock(@PathVariable("productId") Long productId) {
         Integer stockCount = stockQueryService.readStockCount(productId);

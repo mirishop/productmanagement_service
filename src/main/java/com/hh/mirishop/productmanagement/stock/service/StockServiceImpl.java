@@ -2,7 +2,7 @@ package com.hh.mirishop.productmanagement.stock.service;
 
 import com.hh.mirishop.productmanagement.common.exception.ErrorCode;
 import com.hh.mirishop.productmanagement.common.exception.StockException;
-import com.hh.mirishop.productmanagement.common.lock.LockConfig;
+import com.hh.mirishop.productmanagement.config.LockConfig;
 import com.hh.mirishop.productmanagement.common.lock.annotation.DistributedLock;
 import com.hh.mirishop.productmanagement.product.entity.Product;
 import com.hh.mirishop.productmanagement.stock.entity.Stock;
@@ -56,24 +56,24 @@ public class StockServiceImpl implements StockService {
     @Transactional
     @DistributedLock(lockConfig = LockConfig.TEST_LOCK)
     public void decreaseStock(Long productId, int count) {
-        log.info("Decreasing stock for productId: {}, count: {}", productId, count);
+        log.info("재고 감소 요청 productId: {}, count: {}", productId, count);
 
         Stock stock = stockRepository.findById(productId)
                 .orElseThrow(() -> new StockException(ErrorCode.STOCK_NOT_FOUND));
 
         int newQuantity = stock.getQuantity() - count;
         if (newQuantity < 0) {
-            log.warn("Not enough stock for productId: {}. Requested: {}, Available: {}", productId, count, stock.getQuantity());
+            log.warn("재고 불충분 for productId: {}. 요청: {}, 가능: {}", productId, count, stock.getQuantity());
             throw new StockException(ErrorCode.STOCK_NOT_ENOUGH);
         }
 
         stock.update(newQuantity);
-        log.info("Stock decreased for productId: {}. New quantity: {}", productId, newQuantity);
+        log.info("재고 감소 완료 for productId: {}. New quantity: {}", productId, newQuantity);
     }
 
     /**
      * 재고 복구 기능
-     * 구매 취소가 발생하여 재고 취소가 일어나면 Redisson 으로 분산락 적용
+     * 구매 취소가 발생하여 재고를 복구해야 하면 Redisson 으로 분산락 적용
      */
     @Override
     @Transactional

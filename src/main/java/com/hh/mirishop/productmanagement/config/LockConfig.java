@@ -1,4 +1,4 @@
-package com.hh.mirishop.productmanagement.common.lock;
+package com.hh.mirishop.productmanagement.config;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

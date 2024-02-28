@@ -19,7 +19,7 @@ public class StockController {
     private final StockQueryService stockQueryService;
 
     /**
-     * 재고를 주체로 재고 및 상품 조회하는 메소드
+     * 재고를 주체로 재고 및 상품 조회할 수 있습니다.
      */
     @GetMapping("/{productId}")
     public ResponseEntity<BaseResponse<StockResponse>> readStock(@PathVariable("productId") Long productId) {

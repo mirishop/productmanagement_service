@@ -21,7 +21,7 @@ public class StockServiceImpl implements StockService {
     private final StockRepository stockRepository;
 
     /**
-     * 재고 추가 기능, product 추가 이후 진행되는 메소드
+     * 재고 추가 메소드. product 추가 이후 실행되어야 하는 메소드
      */
     @Override
     @Transactional
@@ -37,7 +37,7 @@ public class StockServiceImpl implements StockService {
     }
 
     /**
-     * 재고 수정 기능, 판매자가 재고를 수정하면 변경되는 메소드
+     * 재고 수정 기능. 판매자가 재고를 수정하면 변경되는 메소드
      */
     @Override
     @Transactional
@@ -50,7 +50,6 @@ public class StockServiceImpl implements StockService {
 
     /**
      * 재고 감소 기능
-     * 구매가 발생하여 재고 감소가 일어나면 Redisson 으로 분산락 적용
      */
     @Override
     @Transactional
@@ -73,7 +72,6 @@ public class StockServiceImpl implements StockService {
 
     /**
      * 재고 복구 기능
-     * 구매 취소가 발생하여 재고를 복구해야 하면 Redisson 으로 분산락 적용
      */
     @Override
     @Transactional

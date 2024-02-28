@@ -18,7 +18,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     private final ProductRepository productRepository;
 
     /**
-     * 전체 상품 조회
+     * 전체 상품 조회하는 메소드
      */
     @Override
     @Transactional(readOnly = true)
@@ -30,7 +30,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
 
 
     /**
-     * 상품 한 개 조회
+     * 상품 한 개 조회하는 메소드
      */
     @Override
     @Transactional

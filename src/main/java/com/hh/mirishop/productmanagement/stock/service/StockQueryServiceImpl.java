@@ -15,6 +15,9 @@ public class StockQueryServiceImpl implements StockQueryService {
 
     private final StockRepository stockRepository;
 
+    /**
+     * productId로 Stock 객체를 리턴하는 메소드
+     */
     @Override
     @Transactional(readOnly = true)
     public Stock readStock(Long productId) {
@@ -22,6 +25,9 @@ public class StockQueryServiceImpl implements StockQueryService {
                 .orElseThrow(() -> new StockException(ErrorCode.STOCK_NOT_FOUND));
     }
 
+    /**
+     * productId로 재고 갯수만을 조회하는 메소드
+     */
     @Override
     @Transactional(readOnly = true)
     public Integer readStockCount(Long productId) {

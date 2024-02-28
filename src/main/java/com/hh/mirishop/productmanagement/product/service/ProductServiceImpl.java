@@ -10,6 +10,7 @@ import com.hh.mirishop.productmanagement.product.entity.RegularProduct;
 import com.hh.mirishop.productmanagement.product.repository.ProductRepository;
 import com.hh.mirishop.productmanagement.stock.service.StockService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.SoftDelete;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
     private final StockService stockService;
 
     /**
-     * 상품 생성
+     * 상품을 생성하는 메소드
      */
     @Override
     @Transactional
@@ -37,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * 상품 수정
+     * 상품을 수정하는 메소드
      */
     @Override
     @Transactional
@@ -51,9 +52,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * 상품 삭제
+     * 상품을 삭제하는 메소드
      */
     @Override
+    @SoftDelete
     @Transactional
     public void delete(Long productId) {
         Product product = findProductById(productId);

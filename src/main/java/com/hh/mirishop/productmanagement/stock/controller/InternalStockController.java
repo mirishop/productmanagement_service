@@ -21,7 +21,7 @@ public class InternalStockController {
     private final StockQueryService stockQueryService;
 
     /**
-     * 단순 재고만 조회하는 내부용 메소드
+     * productId로 상품의 갯수가 몇개인지 내부로 통신할수 있습니다.
      */
     @GetMapping("/{productId}")
     public ResponseEntity<BaseResponse<Integer>> readStock(@PathVariable("productId") Long productId) {
@@ -29,6 +29,9 @@ public class InternalStockController {
         return ResponseEntity.ok(new BaseResponse<>("상품 재고 조회 완료", true, stockCount));
     }
 
+    /**
+     * productId와 count를 받아 상품의 갯수를 감소할 수 있습니다.
+     */
     @PostMapping("/decrease")
     public ResponseEntity<BaseResponse<Void>> decreaseStock(@RequestParam("productId") Long productId,
                                                             @RequestParam("count") int count) {
@@ -36,6 +39,9 @@ public class InternalStockController {
         return ResponseEntity.ok(new BaseResponse<>("구매 재고 차감 완료", true, null));
     }
 
+    /**
+     * productId와 count를 받아 상품의 갯수를 복구할 수 있습니다.
+     */
     @PostMapping("/restore")
     public ResponseEntity<BaseResponse<Void>> restoreStock(@RequestParam("productId") Long productId,
                                                            @RequestParam("count") int count) {

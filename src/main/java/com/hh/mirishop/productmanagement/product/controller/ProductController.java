@@ -29,7 +29,8 @@ public class ProductController {
     private final ProductQueryService productQueryService;
 
     /**
-     * 상품 전체 조회
+     * 상품을 전체 조회할 수 있습니다.
+     * Page객체로 제공합니다.
      */
     @GetMapping
     public ResponseEntity<BaseResponse<Page<ProductResponse>>> readAll(Pageable pageable) {
@@ -38,7 +39,8 @@ public class ProductController {
     }
 
     /**
-     * 상품 단건 조회
+     * productId를 받아 상품 하나의 정보를 보여줍니다.
+     * ProductResponse에는 상품의 모든 정보가 있습니다.
      */
     @GetMapping("/{productId}")
     public ResponseEntity<BaseResponse<ProductResponse>> read(@PathVariable("productId") Long productId) {
@@ -47,7 +49,7 @@ public class ProductController {
     }
 
     /**
-     * 상품 추가 메소드
+     * 상품 내용을 받아 상품을 추가할 수 있습니다.
      */
     @PostMapping
     public ResponseEntity<BaseResponse<Void>> create(@Valid @RequestBody ProductCreate productCreate) {
@@ -57,7 +59,7 @@ public class ProductController {
     }
 
     /**
-     * 상품 수정 메소드
+     * 상품 내용을 받아 상품을 수정할 수 있습니다.
      */
     @PutMapping("/{productId}")
     public ResponseEntity<BaseResponse<Void>> update(@PathVariable("productId") Long productId,
@@ -68,7 +70,7 @@ public class ProductController {
     }
 
     /**
-     * 상품 삭제 메소드
+     * 상품 내용을 받아 상품을 수정할 수 있습니다.
      */
     @DeleteMapping
     public ResponseEntity<BaseResponse<Void>> delete(@PathVariable("productId") Long productId) {

@@ -15,6 +15,10 @@ public class InternalProductController {
 
     private final ProductQueryService productQueryService;
 
+    /**
+     * productId를 받아 상품 정보를 내부로 통신합니다.
+     * ProductResponse에는 하나의 상품의 모든 정보가 있습니다.
+     */
     @GetMapping("/{productId}")
     public ProductResponse read(@PathVariable("productId") Long productId) {
         return productQueryService.find(productId);

@@ -9,6 +9,9 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
+/**
+ * 예약 주문 상품
+ */
 @Entity
 @SuperBuilder
 @Getter

@@ -6,6 +6,7 @@ import com.hh.mirishop.productmanagement.product.dto.ProductResponse;
 import com.hh.mirishop.productmanagement.product.dto.ProductUpdate;
 import com.hh.mirishop.productmanagement.product.service.ProductQueryService;
 import com.hh.mirishop.productmanagement.product.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,7 +50,7 @@ public class ProductController {
      * 상품 추가 메소드
      */
     @PostMapping
-    public ResponseEntity<BaseResponse<Void>> create(@RequestBody ProductCreate productCreate) {
+    public ResponseEntity<BaseResponse<Void>> create(@Valid @RequestBody ProductCreate productCreate) {
         productService.createProductAndStock(productCreate);
 
         return ResponseEntity.ok(new BaseResponse<>("상품 생성 성공", true, null));
@@ -60,7 +61,7 @@ public class ProductController {
      */
     @PutMapping("/{productId}")
     public ResponseEntity<BaseResponse<Void>> update(@PathVariable("productId") Long productId,
-                                                     @RequestBody ProductUpdate productUpdate) {
+                                                     @Valid @RequestBody ProductUpdate productUpdate) {
         productService.update(productId, productUpdate);
 
         return ResponseEntity.ok(new BaseResponse<>("상품이 업데이트되었습니다.", true, null));

@@ -28,7 +28,6 @@ public class ProductServiceImpl implements ProductService {
     public Long createProductAndStock(ProductCreate productCreate) {
         // ReservationTime을 가지는 경우와 아닌 경우로 나누어 Product 생성
         Product product = prepareProduct(productCreate);
-
         Product savedProduct = productRepository.save(product);
 
         // stock에 재고 생성
@@ -51,7 +50,11 @@ public class ProductServiceImpl implements ProductService {
         stockService.modifyStock(productId, productUpdate.getQuantity());
     }
 
+    /**
+     * 상품 삭제
+     */
     @Override
+    @Transactional
     public void delete(Long productId) {
         Product product = findProductById(productId);
 
@@ -90,5 +93,4 @@ public class ProductServiceImpl implements ProductService {
                 .isDeleted(false)
                 .build();
     }
-
 }

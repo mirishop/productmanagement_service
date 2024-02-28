@@ -1,6 +1,6 @@
 package com.hh.mirishop.productmanagement.common.lock.annotation;
 
-import com.hh.mirishop.productmanagement.common.lock.LockConfig;
+import com.hh.mirishop.productmanagement.config.LockConfig;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
